@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%232563EB' d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 16h2v-6h-2v6zm0-8h2V8h-2v2z'/%3E%3C/svg%3E">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="Real-time messaging app using Socket.io and Node.js">
+    <meta name="keywords" content="real-time messaging, chat app, socket.io, node.js">
+    <meta name="author" content="WebDevSimplified">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#2563EB">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#2563EB">
+    <meta name="msapplication-navbutton-color" content="#2563EB">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="robots" content="index, follow">
+    <meta name="googlebot" content="index, follow">
+    <meta property="og:title" content="ChatConnect - Real-time Messaging">
+    <meta property="og:description" content="Connect with friends, colleagues, and communities in real-time.">
+    <meta property="og:image" content="https://www.webdevsimplified.com/og-image.png">
+    <meta property="og:url" content="https://www.webdevsimplified.com/real-time-chat">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="ChatConnect">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:locale:alternate" content="en_GB">
+    <meta property="og:locale:alternate" content="es_ES">
+    <meta property="og:locale:alternate" content="fr_FR">
+    <meta property="og:locale:alternate" content="de_DE">
+    <meta property="og:locale:alternate" content="it_IT">
+    <meta property="og:locale:alternate" content="ja_JP">
+    <meta property="og:locale:alternate" content="ko_KR">
+    <meta property="og:locale:alternate" content="pt_BR">
+    <meta property="og:locale:alternate" content="ru_RU">
+    <meta property="og:locale:alternate" content="zh_CN">
+    <meta property="og:locale:alternate" content="zh_TW">
+    <meta property="og:locale:alternate" content="en_CA">
+    <meta property="og:locale:alternate" content="en_IN">
+    <meta property="og:locale:alternate" content="en_IE">
+    <meta property="og:locale:alternate" content="en_AU">
+    <meta property="og:locale:alternate" content="en_NZ">
+    <meta property="og:locale:alternate" content="en_ZA">
+    <meta property="og:locale:alternate" content="en_JM">
+    <meta property="og:locale:alternate" content="en_BS">
+    <meta property="og:locale:alternate" content="en_BZ">
+    <meta property="og:locale:alternate" content="en_BM">
+    <meta property="og:locale:alternate" content="en_GY">
+    <meta property="og:locale:alternate" content="en_GD">
+    <meta property="og:locale:alternate" content="en_KY">
+    <meta property="og:locale:alternate" content="en_AG">
+    <meta property="og:locale:alternate" content="en_AI">
+    <meta property="og:locale:alternate" content="en_BB">
+    <meta property="og:locale:alternate" content="en_BM">
+    <meta property="og:locale:alternate" content="en_BQ">
+    <meta property="og:locale:alternate" content="en_BW">
+    <meta property="og:locale:alternate" content="en_BI">
+    <meta property="og:locale:alternate" content="en_CM">
+    <meta property="og:locale:alternate" content="en_CW">
+    <meta property="og:locale:alternate" content="en_DM">
+    <meta property="og:locale:alternate" content="en_ER">
+    <meta property="og:locale:alternate" content="en_FK">
+    <meta property="og:locale:alternate" content="en_FJ">
+    <meta property="og:locale:alternate" content="en_GM">
+    <meta property="og:locale:alternate" content="en_GH">
+    <meta property="og:locale:alternate" content="en_GI">
+    <meta property="og:locale:alternate" content="en_GD">
+    <meta property="og:locale:alternate" content="en_GY">
+    <title>ChatConnect - Real-time Messaging</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Socket.io Client Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.min.js"></script>
+    
+  <link href="">
+</head>
+<body class="bg-gray-100 h-screen overflow-hidden">
+    <!-- Login Screen -->
+    <div id="loginScreen" class="h-screen flex items-center justify-center bg-gradient-to-br from-blue-500 to-purple-600">
+        <div class="bg-white p-8 rounded-lg shadow-xl w-96">
+            <h2 class="text-3xl font-bold text-center text-gray-800 mb-6">ChatConnect</h2>
+            <p class="text-gray-600 text-center mb-8">Connect with friends, colleagues, and communities in real-time.</p>
+            
+            <div class="mb-6">
+                <label for="username" class="block text-sm font-medium text-gray-700 mb-2">Username</label>
+                <input type="text" id="username" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Choose a username" required>
+            </div>
+            
+            <button id="loginBtn" class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition duration-300 flex items-center justify-center">
+                <i class="fas fa-sign-in-alt mr-2"></i> Join Chat
+            </button>
+            
+            <div id="loginError" class="mt-4 text-red-500 text-center hidden"></div>
+        </div>
+    </div>
+
+    <!-- Main Chat Interface -->
+    <div id="chatInterface" class="h-screen flex flex-col">
+        <!-- Header -->
+        <header class="bg-white shadow-md py-3 px-6">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                    <h1 class="text-xl font-bold text-blue-600">ChatConnect</h1>
+                    <div class="ml-6 text-sm bg-green-100 text-green-800 py-1 px-3 rounded-full flex items-center">
+                        <span class="inline-block w-2 h-2 bg-green-500 rounded-full mr-2"></span>
+                        <span id="onlineStatus">Connected</span>
+                    </div>
+                </div>
+                
+                <div class="flex items-center">
+                    <span id="currentUsername" class="font-medium text-gray-700"></span>
+                    <button id="logoutBtn" class="ml-4 text-gray-500 hover:text-red-500 transition">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <div class="flex-1 flex overflow-hidden">
+            <!-- Sidebar -->
+            <div class="w-72 bg-white border-r border-gray-200 flex flex-col">
+                <!-- Tabs -->
+                <div class="flex border-b border-gray-200 bg-gray-50">
+                    <button id="usersTabBtn" class="flex-1 py-3 font-medium text-center text-blue-600 border-b-2 border-blue-500">
+                        <i class="fas fa-users mr-2"></i> Users
+                    </button>
+                    <button id="roomsTabBtn" class="flex-1 py-3 font-medium text-center text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-door-open mr-2"></i> Rooms
+                    </button>
+                </div>
+                
+                <!-- Users Tab Content -->
+                <div id="usersTab" class="flex-1 overflow-y-auto">
+                    <div class="p-4">
+                        <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">Active Users</h3>
+                        <div id="activeUsersList" class="space-y-2">
+                            <!-- Active users will be populated by JavaScript -->
+                            <div class="text-gray-500 text-sm italic text-center py-4">Loading users...</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Rooms Tab Content -->
+                <div id="roomsTab" class="flex-1 overflow-y-auto hidden">
+                    <div class="p-4">
+                        <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">Chat Rooms</h3>
+                        
+                        <!-- Create Room Button -->
+                        <button id="createRoomBtn" class="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 text-sm mb-4 flex items-center justify-center">
+                            <i class="fas fa-plus mr-2"></i> Create New Room
+                        </button>
+                        
+                        <div id="roomsList" class="space-y-2">
+                            <!-- Rooms will be populated by JavaScript -->
+                            <div class="text-gray-500 text-sm italic text-center py-4">Loading rooms...</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chat Area -->
+            <div class="flex-1 flex flex-col bg-gray-50">
+                <!-- Chat Header -->
+                <div id="chatHeader" class="bg-white border-b border-gray-200 p-4 flex items-center justify-between">
+                    <div class="flex items-center">
+                        <div id="chatIcon" class="w-10 h-10 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center">
+                            <i class="fas fa-globe"></i>
+                        </div>
+                        <div class="ml-3">
+                            <h3 id="chatTitle" class="font-medium">Global Chat</h3>
+                            <p id="chatDescription" class="text-sm text-gray-500">Public chat for everyone</p>
+                        </div>
+                    </div>
+                    <div id="chatActions" class="flex items-center">
+                        <!-- Return to Global Chat Button -->
+                        <button id="returnToGlobalBtn" class="mr-4 text-blue-600 hover:text-blue-800 transition hidden">
+                            <i class="fas fa-globe mr-1"></i> Return to Global Chat
+                        </button>
+                        <button id="leaveRoomBtn" class="text-gray-400 hover:text-red-500 transition hidden">
+                            <i class="fas fa-sign-out-alt"></i> Leave Room
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Messages Area -->
+                <div id="messagesContainer" class="flex-1 overflow-y-auto p-4 space-y-4">
+                    <!-- Welcome message -->
+                    <div class="flex justify-center">
+                        <div class="bg-white rounded-lg px-4 py-2 shadow-sm inline-block">
+                            <p class="text-gray-500 text-sm">Welcome to the chat! Select a user for private messaging or join a room.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Message Input Area -->
+                <div class="bg-white border-t border-gray-200 p-4">
+                    <div id="typingIndicator" class="text-xs text-gray-500 mb-2 hidden">
+                        <div class="typing-indicator">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                        <span id="typingUser">Someone</span> is typing...
+                    </div>
+                    <form id="messageForm" class="flex">
+                        <input type="text" id="messageInput" class="flex-1 border border-gray-300 rounded-l-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Type your message here..." required>
+                        <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-r-md hover:bg-blue-700 transition">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Create Room Modal -->
+    <div id="createRoomModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50" style="display: none;">
+        <div class="bg-white rounded-lg shadow-xl p-6 w-96">
+            <h3 class="text-lg font-medium text-gray-900 mb-4">Create New Room</h3>
+            
+            <form id="createRoomForm">
+                <div class="mb-4">
+                    <label for="roomName" class="block text-sm font-medium text-gray-700 mb-1">Room Name</label>
+                    <input type="text" id="roomName" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter room name" required>
+                </div>
+                
+                <div class="mb-6">
+                    <label for="roomDescription" class="block text-sm font-medium text-gray-700 mb-1">Description</label>
+                    <textarea id="roomDescription" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter room description" rows="2"></textarea>
+                </div>
+                
+                <div class="flex justify-end space-x-3">
+                    <button type="button" id="cancelCreateRoomBtn" class="px-4 py-2 text-gray-700 border border-gray-300 rounded-md hover:bg-gray-50 transition">Cancel</button>
+                    <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition">Create Room</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="notificationToast" class="fixed top-5 right-5 max-w-xs bg-white rounded-lg shadow-lg border-l-4 border-blue-500 overflow-hidden transform transition-all duration-300 ease-in-out z-50 hidden">
+        <div class="p-4">
+            <div class="flex items-start">
+                <div id="notificationIcon" class="flex-shrink-0 text-blue-500">
+                    <i class="fas fa-info-circle fa-lg"></i>
+                </div>
+                <div class="ml-3 w-0 flex-1">
+                    <p id="notificationMessage" class="text-sm font-medium text-gray-900"></p>
+                </div>
+                <div class="ml-4 flex-shrink-0 flex">
+                    <button id="closeNotificationBtn" class="inline-flex text-gray-400 hover:text-gray-500">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="app.js"></script>
+    
+    <!-- Add JavaScript for the Return to Global Chat button -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+    const loginScreen = document.getElementById('loginScreen');
+    const chatInterface = document.getElementById('chatInterface');
+    const loginBtn = document.getElementById('loginBtn');
+    const logoutBtn = document.getElementById('logoutBtn');
+    const currentUsernameEl = document.getElementById('currentUsername');
+    const loginError = document.getElementById('loginError');
+
+    const usersTabBtn = document.getElementById('usersTabBtn');
+    const roomsTabBtn = document.getElementById('roomsTabBtn');
+    const usersTab = document.getElementById('usersTab');
+    const roomsTab = document.getElementById('roomsTab');
+    const createRoomBtn = document.getElementById('createRoomBtn');
+    const createRoomModal = document.getElementById('createRoomModal');
+    const cancelCreateRoomBtn = document.getElementById('cancelCreateRoomBtn');
+
+    // Initially hide chat interface
+    chatInterface.style.display = 'none';
+
+    // Tab switching functionality
+    usersTabBtn.addEventListener('click', () => {
+        usersTabBtn.classList.add('text-blue-600', 'border-blue-500');
+        usersTabBtn.classList.remove('text-gray-500');
+        roomsTabBtn.classList.remove('text-blue-600', 'border-blue-500');
+        roomsTabBtn.classList.add('text-gray-500');
+        
+        usersTab.classList.remove('hidden');
+        roomsTab.classList.add('hidden');
+    });
+
+    roomsTabBtn.addEventListener('click', () => {
+        roomsTabBtn.classList.add('text-blue-600', 'border-blue-500');
+        roomsTabBtn.classList.remove('text-gray-500');
+        usersTabBtn.classList.remove('text-blue-600', 'border-blue-500');
+        usersTabBtn.classList.add('text-gray-500');
+        
+        roomsTab.classList.remove('hidden');
+        usersTab.classList.add('hidden');
+    });
+
+    // Create Room Modal Interactions
+    createRoomBtn.addEventListener('click', () => {
+        createRoomModal.style.display = 'flex';
+    });
+
+    cancelCreateRoomBtn.addEventListener('click', () => {
+        createRoomModal.style.display = 'none';
+    });
+
+    // Login Mechanism (Simulated)
+    loginBtn.addEventListener('click', () => {
+        const username = document.getElementById('username').value.trim();
+        
+        if (username) {
+            // Simulate successful login
+            loginScreen.style.display = 'none';
+            chatInterface.style.display = 'flex';
+            currentUsernameEl.textContent = username;
+            loginError.classList.add('hidden');
+        } else {
+            loginError.textContent = 'Please enter a username';
+            loginError.classList.remove('hidden');
+        }
+    });
+
+    // Logout Mechanism
+    logoutBtn.addEventListener('click', () => {
+        chatInterface.style.display = 'none';
+        loginScreen.style.display = 'flex';
+        document.getElementById('username').value = '';
+    });
+
+    // Enhanced Notification System
+    function showNotification(message, type = 'info') {
+        const notificationToast = document.getElementById('notificationToast');
+        const notificationMessage = document.getElementById('notificationMessage');
+        const notificationIcon = document.getElementById('notificationIcon');
+        
+        notificationMessage.textContent = message;
+        
+        // Reset classes
+        notificationToast.className = notificationToast.className.replace(/border-\w+-500/g, 'border-blue-500');
+        
+        switch(type) {
+            case 'success':
+                notificationIcon.innerHTML = '<i class="fas fa-check-circle fa-lg"></i>';
+                notificationIcon.className = 'flex-shrink-0 text-green-500';
+                notificationToast.className = notificationToast.className.replace('border-blue-500', 'border-green-500');
+                break;
+            case 'error':
+                notificationIcon.innerHTML = '<i class="fas fa-exclamation-circle fa-lg"></i>';
+                notificationIcon.className = 'flex-shrink-0 text-red-500';
+                notificationToast.className = notificationToast.className.replace('border-blue-500', 'border-red-500');
+                break;
+            default:
+                notificationIcon.innerHTML = '<i class="fas fa-info-circle fa-lg"></i>';
+                notificationIcon.className = 'flex-shrink-0 text-blue-500';
+        }
+        
+        notificationToast.classList.remove('hidden');
+        notificationToast.classList.add('notification');
+        
+        setTimeout(() => {
+            notificationToast.classList.add('hidden');
+            notificationToast.classList.remove('notification');
+        }, 3000);
+    }
+
+    // Simulated User and Room Population
+    function populateUsers() {
+        const activeUsersList = document.getElementById('activeUsersList');
+        const sampleUsers = [
+            { name: 'Alice', status: 'active' },
+            { name: 'Bob', status: 'away' },
+            { name: 'Charlie', status: 'active' },
+            { name: 'David', status: 'active' }
+        ];
+
+        activeUsersList.innerHTML = sampleUsers.map(user => `
+            <div class="flex items-center justify-between hover:bg-gray-100 p-2 rounded-md cursor-pointer ${user.status === 'active' ? 'active-now' : ''}">
+                <div class="flex items-center">
+                    <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center mr-3">
+                        <span class="text-blue-600">${user.name[0]}</span>
+                    </div>
+                    <span class="text-sm">${user.name}</span>
+                </div>
+                <span class="text-xs text-gray-500">${user.status}</span>
+            </div>
+        `).join('');
+    }
+
+    function populateRooms() {
+        const roomsList = document.getElementById('roomsList');
+        const sampleRooms = [
+            { name: 'General Discussion', members: 24, description: 'Chat about anything!' },
+            { name: 'Tech Talk', members: 15, description: 'All things technology' },
+            { name: 'Gaming Corner', members: 30, description: 'Video game discussions' }
+        ];
+
+        roomsList.innerHTML = sampleRooms.map(room => `
+            <div class="bg-white border border-gray-200 rounded-md p-3 hover:shadow-sm cursor-pointer">
+                <div class="flex justify-between items-center mb-2">
+                    <h4 class="font-medium text-gray-800">${room.name}</h4>
+                    <span class="text-xs text-gray-500">${room.members} members</span>
+                </div>
+                <p class="text-xs text-gray-500">${room.description}</p>
+            </div>
+        `).join('');
+    }
+
+    // Initialize dynamic content
+    populateUsers();
+    populateRooms();
+
+    // Attach global functions for external use
+    window.showNotification = showNotification;
+});
+    </script>
+</body>
+</html>
