@@ -1,5 +1,5 @@
 // Connect to Socket.io server
-const socket = io('https://chatapp-4x2e.onrender.com');
+const socket = io('http://localhost:5000/');
 
 // DOM Elements
 const loginScreen = document.getElementById('loginScreen');
