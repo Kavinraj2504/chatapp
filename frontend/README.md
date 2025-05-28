@@ -6,14 +6,6 @@ A real-time chat application that enables users to connect and communicate insta
 
 RealTimeChat is a lightweight, browser-based chat application built with Node.js, Express, and Socket.io. It allows users to join chat rooms, send public messages in global chat, and communicate privately with other users in real-time.
 
-## Register
-![image](https://github.com/user-attachments/assets/bd4508fe-0700-454c-abaa-5bf03c71e2c5)
-
-## Group Char layout
-![image](https://github.com/user-attachments/assets/eeacb61c-792c-4185-aae9-c1178bdd344a)
-
-## Private chat layout
-![image](https://github.com/user-attachments/assets/3be060ea-0038-4a87-8647-952a3970a934)
 
 
 
@@ -35,23 +27,14 @@ RealTimeChat is a lightweight, browser-based chat application built with Node.js
 
 ## Project Structure
 
-```
-realtimechat/
-├── .gitignore           # Git ignore file
-├── README.md            # Project documentation
-├── package.json         # Project dependencies
-├── package-lock.json    # Dependency lock file
-├── server.js            # Main server file with Socket.io setup
-├── app.js               # Client-side Socket.io implementation
-├── index.html           # Main entry page with login form
-├── favicon.png          # Website favicon
-```
+
+
 
 ## Installation
 
 1. Clone the repository:
    ```
-   git clone https://github.com/yourusername/realtimechat.git
+   git clone https://github.com/kavinraj2504/CHATAPP.git
    ```
 
 2. Navigate to the project directory:
@@ -85,7 +68,7 @@ realtimechat/
 ## Deployment
 
 The application is currently deployed on Vercel at:
-[https://real-time-chat-anyone.vercel.app/](https://real-time-chat-anyone.vercel.app/)
+[https://earnest-speculoos-e29f12.netlify.app/]
 
 ## Development
 
